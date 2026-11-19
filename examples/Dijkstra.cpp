@@ -14,16 +14,16 @@ struct Cmp { bool operator()(const Node& a, const Node& b) { return a.second > b
 
 vector<int> Dijkstra(vector<vector<Node>>& G, int p) {
     vector<int> dist(G.size(), INF);
-    priority_queue<Node, vector<Node>, Cmp> q; // Priority queue always puts smalles distance first in queue
+    priority_queue<Node, vector<Node>, Cmp> q; // priority queue always puts smallest distance first in queue
     q.push(make_pair(p, 0));
     while (!q.empty()) {
         Node n = q.top();
         q.pop();
-        if (n.second > dist[n.first]) continue; // skip outdated entries
+        if (n.second >= dist[n.first]) continue; // skip outdated entries
         dist[n.first] = n.second; // processed the node, so this means that it's distance is final, as we always process the shortest total distance
         for (Node nn : G[n.first]) {
             // Push if distance is smaller than already visited
-            if (n.second + nn.second < dist[nn.first]) { // this condition is an optimization, so that we only visit each node once
+            if (n.second + nn.second < dist[nn.first]) { // this condition is an optimization, so that each node is visited once
                 q.push(make_pair(nn.first, n.second + nn.second));
             }
         }

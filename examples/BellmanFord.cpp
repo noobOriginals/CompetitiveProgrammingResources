@@ -14,10 +14,13 @@ vector<int> BellmanFord(vector<vector<pair<int, int>>>& G, int start) {
     while (!q.empty()) {
         pair<int, int> n = q.front();
         q.pop();
-        if (n.second > dist[n.first]) continue; // Distance is greater, we discard this node
-        dist[n.first] = n.second; // We save the better distance and continue processing consecutive nodes
+        if (n.second >= dist[n.first]) continue; // distance is greater or was already processed, discard this node
+        dist[n.first] = n.second; // save the better distance and continue processing consecutive nodes
         for (pair<int, int>& nn : G[n.first]) {
-            q.push(make_pair(nn.first, n.second + nn.second));
+            // Push if distance is smaller than already visited
+            if (n.second + nn.second < dist[nn.first]) { // this condition is an optimization, so that each node is visited once
+                q.push(make_pair(nn.first, n.second + nn.second));
+            }
         }
     }
     return dist;
