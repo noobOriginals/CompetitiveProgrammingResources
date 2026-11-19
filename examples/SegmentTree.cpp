@@ -41,7 +41,7 @@ void update(int x, int i, vector<int>& tree, int node, int nl, int nr) { // comp
     int m = (nl + nr) / 2;
     if (i <= m) update(x, i, tree, 2 * node + 1, nl, m); // first update sub-ranges
     else update(x, i, tree, 2 * node + 2, m + 1, nr); // first update sub-ranges
-    tree[node] = min(tree[2 * node + 1], tree[2 * node + 2]); // now update current node, takes the minimum of the two leaf nodes
+    tree[node] = min(tree[2 * node + 1], tree[2 * node + 2]); // now update current node, takes the minimum of its two children nodes
 }
 
 int main() {
