@@ -6,15 +6,15 @@ using namespace std;
 vector<int> BFS(vector<vector<int>>& G, int start) {
     vector<int> path;
     vector<bool> visited(G.size(), false);
-    queue<int> q; // Using queue. Processes nodes from the first pushed into the queue
+    queue<int> q; // using queue: processes nodes from the first pushed to the queue
     q.push(start);
     while (!q.empty()) {
         int n = q.front();
         q.pop();
-        if (visited[n]) continue;
+        if (visited[n]) continue; // skip outdated entries
         visited[n] = true;
         path.push_back(n);
-        for (int nn : G[n]) q.push(nn);
+        for (int nn : G[n]) if (!visited[nn]) q.push(nn);
     }
     return path;
 }

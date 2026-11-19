@@ -73,7 +73,7 @@ int main() {
     int b = 1, e = 1;
     while (cin >> b && b > 0) { // Type 0 to exit, any other range to query the table
         cin >> e;
-        if (e < b) { cout << "invalid\n"; continue; }
+        if (e < b || e > n) { cout << "invalid\n"; continue; }
         b--; e--;
         cout << "min : " << min_table.query(b, e) << "\n";
         cout << "max : " << max_table.query(b, e) << "\n";

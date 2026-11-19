@@ -19,11 +19,11 @@ vector<int> Dijkstra(vector<vector<Node>>& G, int p) {
     while (!q.empty()) {
         Node n = q.top();
         q.pop();
-        if (n.second > dist[n.first]) continue;
-        dist[n.first] = n.second; // Precessed the node means this is the final distance, as we always process the shortest total distance
+        if (n.second > dist[n.first]) continue; // skip outdated entries
+        dist[n.first] = n.second; // processed the node, so this means that it's distance is final, as we always process the shortest total distance
         for (Node nn : G[n.first]) {
             // Push if distance is smaller than already visited
-            if (n.second + nn.second < dist[nn.first]) {
+            if (n.second + nn.second < dist[nn.first]) { // this condition is an optimization, so that we only visit each node once
                 q.push(make_pair(nn.first, n.second + nn.second));
             }
         }

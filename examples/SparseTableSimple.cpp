@@ -1,5 +1,6 @@
 // This has the same memory complexity like the SparseTable implementation in a contiguous array, but that has better cache behaviour
 // so in practical implementations with large arrays that version behaves better (is faster) than this one, but not by a lot
+// Complexity: build - O(n log n), query - O(1)
 
 #include <iostream>
 #include <vector>
@@ -45,7 +46,7 @@ int main() {
     int b = 1, e = 1;
     while (cin >> b && b > 0) { // type 0 to exit, any other range to query the table
         cin >> e;
-        if (e < b && e > n) { cout << "invalid\n"; continue; }
+        if (e < b || e > n) { cout << "invalid\n"; continue; }
         b--; e--;
 
         // Query: complexity O(1)
